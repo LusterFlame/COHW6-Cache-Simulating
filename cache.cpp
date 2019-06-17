@@ -81,7 +81,7 @@ int main(int argc, char* argv[]){
                 }
                 break;
             case 1:     // case for 4-way assoc
-                index = std::stoi(inString.substr(tagSize, entryLength), nullptr, 2);
+                index = std::stoi(inString.substr(tagSize, entryLength), nullptr, 2) / 4 * 4;
                 for(int temp1 = 0;temp1 < 4;++temp1){
                     if(temp1 == 0){
                         bool set = false;
