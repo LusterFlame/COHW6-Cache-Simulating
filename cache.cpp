@@ -31,10 +31,6 @@ int main(int argc, char* argv[]){
         std::string trash;
         getline(input, trash);
     }
-    std::cout << cacheSize << std::endl;
-    std::cout << blockSize << std::endl;
-    std::cout << asso << std::endl;
-    std::cout << policy << std::endl;
 
     entryCount = (cacheSize * 1024) / blockSize;
     int entryLength = log2(entryCount);
@@ -49,8 +45,6 @@ int main(int argc, char* argv[]){
         tagSize += entryLength;
         entryLength = 0;
     }
-    std::cout << tagSize << std::endl;
-    std::cout << entryLength << std::endl;
 
     // Creating the cache vector
     std::vector<Entry> cache(entryCount, tagSize);
@@ -143,7 +137,6 @@ int main(int argc, char* argv[]){
                     }
                     if(temp1 == entryCount - 1){
                         temp1 = getOldestBlockAll(&cache);
-                        std::cout << std::strtoull(cache.at(temp1).getTag().c_str(), nullptr, 2) << std::endl;
                         output << std::strtoul(cache.at(temp1).getTag().c_str(), nullptr, 2) << std::endl;
                         cache.at(temp1).setTag(inString.substr(0, tagSize));
                         cache.at(temp1).setSince(instIndex);
