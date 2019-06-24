@@ -89,7 +89,7 @@ int main(int argc, char* argv[]){
                             if(cache.at(index + temp2).getTag() == inString.substr(0, tagSize)){
                                 if(policy == 1 || policy == 2){
                                     cache.at(index + temp2).setSince(instIndex);
-                                }
+				}
                                 output << -1 << std::endl;
                                 set = true;
                                 break;
@@ -105,11 +105,17 @@ int main(int argc, char* argv[]){
                     }
                     // If all 4 slot is filled, go into this if block
                     if(temp1 == 3){
-                        temp1 = getOldestBlock4(index, &cache);
-                        output << std::strtoull(cache.at(index + temp1).getTag().c_str(), nullptr, 2) << std::endl;
-                        cache.at(index + temp1).setTag(inString.substr(0, tagSize));
-                        cache.at(index + temp1).setSince(instIndex);
-                        break;
+			if(policy == 1){
+                        	temp1 = getOldestBlock4(index, &cache);
+                        	output << std::strtoull(cache.at(index + temp1).getTag().c_str(), nullptr, 2) << std::endl;
+                        	cache.at(index + temp1).setTag(inString.substr(0, tagSize));
+                        	cache.at(index + temp1).setSince(instIndex);
+                        	break;
+			}
+			else if(policy == 2){
+				output << std::strtoull(cache.at(index + 1).getTag().c_str(), nullptr, 2) << std::endl;
+				cache.at(index + 1).setTag(inString.substr(0, tagSize));
+			}
                     }
                 }
                 break;
@@ -121,7 +127,9 @@ int main(int argc, char* argv[]){
                             if(cache.at(temp2).getTag() == inString.substr(0, tagSize)){
                                 if(policy == 1 || policy == 2){
                                     cache.at(temp2).setSince(instIndex);
-                                }
+                                }else if(policy == 2){
+				    cache.at(temp2).setSince(instIndex);
+				}
                                 output << -1 << std::endl;
                                 set = true;
                                 break;
